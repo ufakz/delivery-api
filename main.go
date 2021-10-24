@@ -14,6 +14,7 @@ import (
 	"github.com/rs/cors"
 )
 
+//Define mux router and configure route handlers
 func Router() *mux.Router {
 	router := mux.NewRouter()
 	router.HandleFunc("/delivery_estimate", delivery.GetDeliveryEstimate).Methods(http.MethodPost)
@@ -23,6 +24,7 @@ func Router() *mux.Router {
 }
 
 func main() {
+	//Load environment file
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Printf("Error loading .env file: %v", err)
@@ -36,8 +38,10 @@ func main() {
 		port = "8000"
 	}
 
+	//Allow cross-origin request for external API calls
 	c := cors.AllowAll()
 
+	//Configure http server with cors
 	server := &http.Server{
 		Handler:      c.Handler(r),
 		Addr:         ":" + port,
@@ -45,6 +49,7 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 	}
 
+	//Start server
 	fmt.Println("Delivery API running on port ", port)
 	log.Fatal(server.ListenAndServe())
 }

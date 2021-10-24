@@ -88,7 +88,7 @@ func CreateNewDelivery(w http.ResponseWriter, r *http.Request) {
 	defer resp.Body.Close()
 
 	//Convert response to EstimateResponse struct
-	var response EstimateResponse
+	var response DeliveryResponse
 	json.Unmarshal(bodyBytes, &response)
 
 	//Set response headers

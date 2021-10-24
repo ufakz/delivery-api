@@ -2,11 +2,51 @@ basePath: /
 consumes:
 - application/json
 definitions:
+  CreateDeliveryRequest:
+    properties:
+      delivery_address:
+        type: string
+        x-go-name: DeliveryAdd
+      delivery_email:
+        type: string
+        x-go-name: DeliveryEmail
+      delivery_latitude:
+        type: string
+        x-go-name: DeliveryLat
+      delivery_longitude:
+        type: string
+        x-go-name: DeliveryLong
+      delivery_name:
+        type: string
+        x-go-name: DeliveryName
+      delivery_phone:
+        type: string
+        x-go-name: DeliveryPhone
+      descriptioin:
+        type: string
+        x-go-name: Description
+      pickup_address:
+        type: string
+        x-go-name: PickupAdd
+      pickup_email:
+        type: string
+        x-go-name: PickupEmail
+      pickup_latitue:
+        type: string
+        x-go-name: PickupLat
+      pickup_longitude:
+        type: string
+        x-go-name: PickupLong
+      pickup_name:
+        type: string
+        x-go-name: PickupName
+      pickup_phone:
+        type: string
+        x-go-name: PickupPhone
+    type: object
+    x-go-package: github.com/farouqu/delivery-api/delivery
   DeliveryEstimateRequest:
     properties:
-      api_key:
-        type: string
-        x-go-name: ApiKey
       delivery_latitude:
         type: string
         x-go-name: DeliveryLat
@@ -19,6 +59,22 @@ definitions:
       pickup_longitude:
         type: string
         x-go-name: PickupLong
+    type: object
+    x-go-package: github.com/farouqu/delivery-api/delivery
+  DeliveryResponse:
+    properties:
+      distance:
+        type: string
+        x-go-name: Distance
+      fare:
+        type: string
+        x-go-name: Fare
+      order_id:
+        type: string
+        x-go-name: OrderID
+      time:
+        type: string
+        x-go-name: Time
     type: object
     x-go-package: github.com/farouqu/delivery-api/delivery
   EstimateResponse:
@@ -61,6 +117,10 @@ paths:
 produces:
 - application/json
 responses:
+  deliverySuccessResponse:
+    description: Successful delivery order
+    schema:
+      $ref: '#/definitions/DeliveryResponse'
   estimateSuccessResponse:
     description: Successful estimate created response.
     schema:
