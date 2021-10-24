@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 func GetDeliveryEstimate(w http.ResponseWriter, r *http.Request) {
@@ -15,8 +16,17 @@ func GetDeliveryEstimate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	//Prepend API KEY to request body
+	var m map[string]interface{}
+	json.Unmarshal(reqBody, &m)
+	m["api_key"] = os.Getenv("API_KEY")
+	requestBody, err := json.Marshal(m)
+	if err != nil {
+		return
+	}
+
 	//Make post request to Gokada API
-	resp, err := http.Post("https://api.gokada.ng/api/developer/order_estimate", "application/json", bytes.NewBuffer(reqBody))
+	resp, err := http.Post("https://api.gokada.ng/api/developer/order_estimate", "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		fmt.Print(err.Error())
 		return
@@ -45,12 +55,5 @@ func GetDeliveryEstimate(w http.ResponseWriter, r *http.Request) {
 }
 
 func CreateNewDelivery(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)
-	jsonResponse, err := json.Marshal("{'data':'Delivery Posted'}")
-	if err != nil {
-		return
-	}
 
-	w.Write(jsonResponse)
 }

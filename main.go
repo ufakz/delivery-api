@@ -15,8 +15,8 @@ import (
 
 func Router() *mux.Router {
 	router := mux.NewRouter()
-	router.HandleFunc("/delivery", delivery.GetDeliveryEstimate).Methods(http.MethodPost)
-	//router.HandleFunc("/delivery", delivery.CreateNewDelivery).Methods(http.MethodPost)
+	router.HandleFunc("/delivery_estimate", delivery.GetDeliveryEstimate).Methods(http.MethodPost)
+	router.HandleFunc("/dellivery_order", delivery.CreateNewDelivery).Methods(http.MethodPost)
 
 	return router
 }
