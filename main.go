@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/farouqu/delivery-api/delivery"
+	_ "github.com/farouqu/delivery-api/docs"
 	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"github.com/rs/cors"

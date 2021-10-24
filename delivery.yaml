@@ -1,0 +1,73 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  DeliveryEstimateRequest:
+    properties:
+      api_key:
+        type: string
+        x-go-name: ApiKey
+      delivery_latitude:
+        type: string
+        x-go-name: DeliveryLat
+      delivery_longitude:
+        type: string
+        x-go-name: DeliveryLong
+      pickup_latitude:
+        type: string
+        x-go-name: PickupLat
+      pickup_longitude:
+        type: string
+        x-go-name: PickupLong
+    type: object
+    x-go-package: github.com/farouqu/delivery-api/delivery
+  EstimateResponse:
+    properties:
+      distance:
+        format: int64
+        type: integer
+        x-go-name: Distance
+      fare:
+        format: int64
+        type: integer
+        x-go-name: Fare
+      time:
+        format: int64
+        type: integer
+        x-go-name: Time
+    type: object
+    x-go-package: github.com/farouqu/delivery-api/delivery
+host: localhost
+info:
+  description: Documentation of our Delivery API.
+  title: Delivery.
+  version: 1.0.0
+paths:
+  /delivery_estimate:
+    post:
+      operationId: idDelivery
+      parameters:
+      - description: Fetches the estimate for a delivery order.
+        in: body
+        name: Body
+        schema:
+          $ref: '#/definitions/DeliveryEstimateRequest'
+      responses:
+        "200":
+          $ref: '#/responses/estimateSuccessResponse'
+      summary: Fetches the estimate for a delivery order.
+      tags:
+      - delivery_estimate
+produces:
+- application/json
+responses:
+  estimateSuccessResponse:
+    description: Successful estimate created response.
+    schema:
+      $ref: '#/definitions/EstimateResponse'
+schemes:
+- http
+securityDefinitions:
+  basic:
+    type: basic
+swagger: "2.0"
