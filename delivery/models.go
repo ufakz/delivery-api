@@ -31,7 +31,7 @@ type CreateDeliveryRequest struct {
 
 type DeliveryResponse struct {
 	OrderID  string `json:"order_id"`
-	Distance string `json:"distance"`
-	Time     string `json:"time"`
-	Fare     string `json:"fare"`
+	Distance int    `json:"distance"`
+	Time     int    `json:"time"`
+	Fare     int    `json:"fare"`
 }
