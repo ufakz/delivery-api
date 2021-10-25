@@ -12,8 +12,18 @@ import (
 
 	"cloud.google.com/go/firestore"
 	firebase "firebase.google.com/go"
+	"github.com/gorilla/mux"
 	"google.golang.org/api/option"
 )
+
+//Define mux router and configure route handlers
+func Router() *mux.Router {
+	router := mux.NewRouter()
+	router.HandleFunc("/delivery_estimate", GetDeliveryEstimate).Methods(http.MethodPost)
+	router.HandleFunc("/delivery_order", CreateNewDelivery).Methods(http.MethodPost)
+
+	return router
+}
 
 func GetDeliveryEstimate(w http.ResponseWriter, r *http.Request) {
 	var m map[string]interface{}
@@ -28,7 +38,7 @@ func GetDeliveryEstimate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Make post request to Gokada API
-	resp, err := http.Post("https://api.gokada.ng/api/developer/order_estimate", "application/json", bytes.NewBuffer(requestBody))
+	resp, err := http.Post("https://private-anon-0bb850b792-gokada2.apiary-mock.com/api/developer/order_estimate", "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		fmt.Print(err.Error())
 		return
@@ -81,7 +91,7 @@ func CreateNewDelivery(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Make post request to Gokada API
-	resp, err := http.Post("https://api.gokada.ng/api/developer/order_create", "application/json", bytes.NewBuffer(requestBody))
+	resp, err := http.Post("https://private-anon-0bb850b792-gokada2.apiary-mock.com/api/developer/order_create", "application/json", bytes.NewBuffer(requestBody))
 	if err != nil {
 		fmt.Print(err.Error())
 		return

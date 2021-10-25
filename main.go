@@ -9,19 +9,9 @@ import (
 
 	"github.com/farouqu/delivery-api/delivery"
 	_ "github.com/farouqu/delivery-api/docs"
-	"github.com/gorilla/mux"
 	"github.com/joho/godotenv"
 	"github.com/rs/cors"
 )
-
-//Define mux router and configure route handlers
-func Router() *mux.Router {
-	router := mux.NewRouter()
-	router.HandleFunc("/delivery_estimate", delivery.GetDeliveryEstimate).Methods(http.MethodPost)
-	router.HandleFunc("/delivery_order", delivery.CreateNewDelivery).Methods(http.MethodPost)
-
-	return router
-}
 
 func main() {
 	//Load environment file
@@ -32,7 +22,7 @@ func main() {
 
 	fmt.Println("Environment variables successfully loaded. Starting application...")
 
-	r := Router()
+	r := delivery.Router()
 	port, _ := os.LookupEnv("PORT")
 	if port == "" {
 		port = "8000"
